@@ -126,6 +126,22 @@ app.get('/account', verifyIfExistsAccount, (request, response) => {
   const { customer } = request;
 
   return response.json(customer);
-})
+});
+
+app.delete('/account', verifyIfExistsAccount, (request, response) => {
+  const { customer } = request;
+
+  customers.splice(customer, 1);
+
+  return response.status(200).json(customers);
+});
+
+app.get('/balance', verifyIfExistsAccount, (request, response) => {
+  const { customer } = request;
+
+  const balace = getBalance(customer.statement);
+
+  return response.json(balace);
+});
 
 app.listen(3333);
